@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>pixal.ro — 404</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
+  :root{
+    --bg-0: #0a0c16;
+    --bg-1: #12162a;
+    --grid: #1c2140;
+    --ink: #e7e6f5;
+    --dim: #8a8bb3;
+    --cyan: #5eead4;
+    --violet: #8b7cf6;
+    --amber: #ffd166;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html, body{
+    margin:0;
+    height:100%;
+    background:
+      radial-gradient(ellipse 90% 70% at 50% -10%, var(--bg-1), var(--bg-0) 60%);
+    overflow:hidden;
+    font-family:'Space Mono', monospace;
+    color:var(--ink);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; }
+  }
+
+  /* faint scanline grid */
+  .grid{
+    position:fixed; inset:0;
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 42px 42px;
+    opacity:0.35;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 0%, transparent 75%);
+  }
+
+  /* starfield */
+  .stars{ position:fixed; inset:0; }
+  .star{
+    position:absolute;
+    width:2px; height:2px;
+    background:var(--ink);
+    border-radius:1px;
+    opacity:0.5;
+    animation: twinkle 3.5s ease-in-out infinite;
+  }
+  @keyframes twinkle{
+    0%, 100%{ opacity:0.15; }
+    50%{ opacity:0.9; }
+  }
+
+  main{
+    position:relative;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:24px;
+  }
+
+  .eyebrow{
+    font-size:12px;
+    letter-spacing:0.35em;
+    text-transform:uppercase;
+    color:var(--cyan);
+    margin-bottom:22px;
+    opacity:0.85;
+  }
+
+  .code{
+    font-family:'Silkscreen', monospace;
+    font-weight:700;
+    font-size:clamp(64px, 18vw, 160px);
+    line-height:1;
+    letter-spacing:0.02em;
+    color:var(--ink);
+    position:relative;
+    user-select:none;
+    text-shadow:
+      0 0 24px rgba(139,124,246,0.35);
+  }
+  .code .glitch-layer{
+    position:absolute;
+    top:0; left:0; right:0;
+    width:100%;
+    color:var(--cyan);
+    clip-path: inset(0 0 100% 0);
+    animation: glitch-cyan 6.5s steps(1) infinite;
+    mix-blend-mode: screen;
+  }
+  .code .glitch-layer.two{
+    color:var(--amber);
+    animation: glitch-amber 7.2s steps(1) infinite;
+  }
+  @keyframes glitch-cyan{
+    0%, 92%, 100%{ clip-path: inset(0 0 100% 0); transform: translate(0,0); }
+    93%{ clip-path: inset(10% 0 60% 0); transform: translate(-3px, 1px); }
+    94%{ clip-path: inset(40% 0 20% 0); transform: translate(3px, -1px); }
+    95%{ clip-path: inset(0 0 100% 0); transform: translate(0,0); }
+    96%{ clip-path: inset(60% 0 5% 0); transform: translate(-2px, 2px); }
+    97%{ clip-path: inset(0 0 100% 0); }
+  }
+  @keyframes glitch-amber{
+    0%, 90%, 100%{ clip-path: inset(0 0 100% 0); transform: translate(0,0); }
+    90.5%{ clip-path: inset(20% 0 50% 0); transform: translate(3px, -2px); }
+    91.5%{ clip-path: inset(0 0 100% 0); }
+    95.5%{ clip-path: inset(70% 0 8% 0); transform: translate(-4px, 1px); }
+    96.3%{ clip-path: inset(0 0 100% 0); }
+  }
+
+  .sub{
+    margin-top:26px;
+    font-size:15px;
+    color:var(--dim);
+    max-width:440px;
+    line-height:1.6;
+  }
+  .sub b{ color:var(--ink); font-weight:700; }
+
+  .cursor-line{
+    margin-top:6px;
+    font-size:15px;
+    color:var(--violet);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    min-height:22px;
+  }
+  .cursor-line .blink{
+    display:inline-block;
+    width:9px; height:16px;
+    background:var(--violet);
+    animation: blink 1s steps(1) infinite;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  /* satellite */
+  .satellite-wrap{
+    position:absolute;
+    top:14%;
+    left:0;
+    width:100%;
+    height:0;
+    pointer-events:none;
+  }
+  .satellite{
+    position:absolute;
+    animation: drift 22s linear infinite;
+    filter: drop-shadow(0 0 6px rgba(94,234,212,0.5));
+  }
+  @keyframes drift{
+    0%{ transform: translate(-10vw, 0px) rotate(-6deg); }
+    50%{ transform: translate(55vw, 40px) rotate(4deg); }
+    100%{ transform: translate(115vw, -10px) rotate(-6deg); }
+  }
+  .satellite svg{ display:block; width:46px; height:46px; }
+  .satellite .blip{
+    animation: blip 2.6s ease-in-out infinite;
+  }
+  @keyframes blip{
+    0%, 100%{ opacity:0.2; }
+    50%{ opacity:1; }
+  }
+
+  footer{
+    position:fixed;
+    bottom:22px;
+    left:0; right:0;
+    text-align:center;
+    font-size:11px;
+    letter-spacing:0.12em;
+    color:var(--dim);
+    opacity:0.6;
+    text-transform:uppercase;
+  }
+</style>
+</head>
+<body>
+
+<div class="grid"></div>
+<div class="stars" id="stars"></div>
+
+<div class="satellite-wrap">
+  <div class="satellite">
+    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="19" y="19" width="10" height="10" rx="1.5" fill="#8b7cf6"/>
+      <rect x="2" y="17" width="13" height="5" rx="1" fill="#5eead4" opacity="0.85"/>
+      <rect x="33" y="17" width="13" height="5" rx="1" fill="#5eead4" opacity="0.85"/>
+      <line x1="19" y1="24" x2="10" y2="30" stroke="#e7e6f5" stroke-width="1.5"/>
+      <circle class="blip" cx="10" cy="30" r="2" fill="#ffd166"/>
+    </svg>
+  </div>
+</div>
+
+<main>
+  <div class="eyebrow">pixal.ro</div>
+  <div class="code">
+    404
+    <span class="glitch-layer" aria-hidden="true">404</span>
+    <span class="glitch-layer two" aria-hidden="true">404</span>
+  </div>
+  <p class="sub">You've reached <b>pixal.ro</b> — there's nothing parked here yet. The signal's still being tuned.</p>
+  <div class="cursor-line">building something<span class="blink"></span></div>
+</main>
+
+<footer>transmitting from low earth orbit</footer>
+
+<script>
+  // scatter a small starfield
+  const starsEl = document.getElementById('stars');
+  const STAR_COUNT = 60;
+  for (let i = 0; i < STAR_COUNT; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    s.style.left = Math.random() * 100 + 'vw';
+    s.style.top = Math.random() * 100 + 'vh';
+    s.style.animationDelay = (Math.random() * 3.5) + 's';
+    s.style.opacity = (0.2 + Math.random() * 0.5).toFixed(2);
+    const size = Math.random() < 0.15 ? 3 : 2;
+    s.style.width = size + 'px';
+    s.style.height = size + 'px';
+    starsEl.appendChild(s);
+  }
+</script>
+
+</body>
+</html>
