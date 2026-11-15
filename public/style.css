@@ -1,5 +1,5 @@
 /* A.R.I.E.S. // shared station styles
-   Dark is the default theme. Light is toggled via [data-theme="light"].
+  Dark is the default theme. Light is toggled via [data-theme="light"].
    --accent is the text-safe colour; --accent-2 is decoration only (glows, fills). */
 
 :root {
