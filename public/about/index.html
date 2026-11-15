@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A.R.I.E.S. // Crew Quarters</title>
+  <meta name="description" content="A.R.I.E.S. crew quarters: who runs the station and what they get up to.">
+  <meta name="theme-color" content="#16151b">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2316151b'/%3E%3Cpath fill-rule='evenodd' d='M16 5 6 27h4l2-5h8l2 5h4L16 5zm0 9 3 6h-6l3-6z' fill='%23a78bfa'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/theme.js"></script>
+  <script src="/script.js" defer></script>
+</head>
+<body>
+  <canvas id="starfield" aria-hidden="true"></canvas>
+  <a class="skip" href="#main">Skip to main content</a>
+
+  <header class="topbar">
+    <div class="wrap bar">
+      <a class="brand" href="/" aria-label="A.R.I.E.S. docking bay">
+        <span class="brand-name">A.R.I.E.S.</span>
+        <span class="brand-sub">Autonomous Research, Intelligence &amp; Exploration Station</span>
+      </a>
+      <nav class="nav" aria-label="Station sections">
+        <ul>
+          <li><a href="/">Docking Bay</a></li>
+          <li><a href="/about/" aria-current="page">Crew Quarters</a></li>
+          <li><span class="off">Radio Room<span class="sr-only"> (offline)</span></span></li>
+          <li><span class="off">Crew Log<span class="sr-only"> (offline)</span></span></li>
+        </ul>
+      </nav>
+      <button type="button" id="theme-toggle" class="btn" aria-pressed="false">
+        <span class="ico" aria-hidden="true">&#9680;</span><span>Light theme</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="wrap">
+      <p class="eyebrow">Deck 02 // Habitation</p>
+      <h1>Crew Quarters</h1>
+      <p class="lede">
+        Every station needs someone to keep the lights on. This is the crew manifest: who is aboard,
+        what they are working on, and what is stowed in the lockers.
+      </p>
+
+      <div class="quarters">
+        <section class="panel id-card" aria-labelledby="manifest-h">
+          <h2 id="manifest-h">Crew manifest</h2>
+          <div class="id-body">
+            <svg class="avatar" viewBox="0 0 120 140" role="img" aria-labelledby="av-t">
+              <title id="av-t">Crew portrait: a figure in a space helmet</title>
+              <rect class="av-bg" x="1" y="1" width="118" height="138" rx="10"/>
+              <path class="av-suit" d="M14 140c0-30 20-44 46-44s46 14 46 44z"/>
+              <path class="av-line" d="M44 100l16 14 16-14"/>
+              <circle class="av-helmet" cx="60" cy="58" r="36"/>
+              <path class="av-visor" d="M36 52c0-14 10-22 24-22s24 8 24 22v6c0 12-10 20-24 20S36 70 36 58z"/>
+              <path class="av-glint" d="M44 46c3-6 8-9 14-10"/>
+              <circle class="av-lamp" cx="98" cy="22" r="4"/>
+            </svg>
+            <dl class="readouts">
+              <div><dt>Callsign</dt><dd>Pixal</dd></div>
+              <div><dt>Role</dt><dd>Station operator</dd></div>
+              <div><dt>Origin</dt><dd>Eastern europe</dd></div>
+              <div><dt>Aboard since</dt><dd>Nov 2026</dd></div>
+              <div><dt>Status</dt><dd class="val-ok"><span class="dot" aria-hidden="true"></span>Active</dd></div>
+              <div><dt>Clearance</dt><dd>Level: curious</dd></div>
+            </dl>
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="mission-h">
+          <h2 id="mission-h">Mission statement</h2>
+          <p class="mission">
+            Collect old technology, take photographs, learn to build tools properly, and run my own
+            corner of the internet instead of renting one.
+          </p>
+          <p class="lede" style="margin-bottom:0">
+            A.R.I.E.S. is that corner: a small self-hosted station built piece by piece, with the
+            work-in-progress left visible.
+          </p>
+        </section>
+      </div>
+
+      <h2 class="section-title">Onboard systems</h2>
+      <ul class="modules">
+        <li class="module">
+          <span class="badge here">Online</span>
+          <h3>Retro tech</h3>
+          <p>Hardware, systems and ideas that people left in the past. I collected them, one marvel at a time.</p>
+        </li>
+        <li class="module">
+          <span class="badge learn">Calibrating</span>
+          <h3>Astronomy</h3>
+          <p>The burning flame to feel humbled. that's how I would describe it. reminds you how small and insignificant you can be to the scale of the cosmos </p>
+        </li>
+        <li class="module">
+          <span class="badge here">Online</span>
+          <h3>Photography</h3>
+          <p>Film and digital, with an eye for light. A gallery module may come online later(hopefully).</p>
+        </li>
+        <li class="module">
+          <span class="badge learn">Calibrating</span>
+          <h3>Development</h3>
+          <p>Still a beginner in every language tried, and enjoying it. Learning by building real, useful tools.</p>
+        </li>
+        <li class="module">
+          <span class="badge here">Online</span>
+          <h3>Self-hosting</h3>
+          <p>A homelab that grows steadily, built around free software and keeping ownership of my own data.</p>
+        </li>
+      </ul>
+
+      <h2 class="section-title">Station comms</h2>
+      <div class="panel">
+        <p class="lede" style="margin:0">
+          The radio room and the crew log are still under construction. When they come online, this
+          is where to leave a message. For now, enjoy the view.
+          <a href="/">Back to the docking bay</a>.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <span>A.R.I.E.S. // &copy; 2026 pixal.ro</span>
+      <span>Static site. No trackers, no cookies.</span>
+    </div>
+  </footer>
+</body>
+</html>
