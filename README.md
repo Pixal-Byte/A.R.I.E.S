@@ -1,4 +1,4 @@
-# Webserver repo
+# Web repo -> A.R.I.E.S.
+### **Autonomous Research, Inteligence & Exploration Station**
 
-Basically general stuff that sits in the directory of the webserver.
-Now that I think about it, it would've been easier to include the entire `web-flux` directory
+Yeah, files mostly here :p
