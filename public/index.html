@@ -1,42 +1,156 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" data-theme="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="style.css">
-<title>pixal.ro — 404</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A.R.I.E.S. // Docking Bay</title>
+  <meta name="description" content="A.R.I.E.S. (Autonomous Research, Intelligence &amp; Exploration Station): the docking bay.">
+  <meta name="theme-color" content="#16151b">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2316151b'/%3E%3Cpath fill-rule='evenodd' d='M16 5 6 27h4l2-5h8l2 5h4L16 5zm0 9 3 6h-6l3-6z' fill='%23a78bfa'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/theme.js"></script>
+  <script src="/script.js" defer></script>
 </head>
 <body>
+  <canvas id="starfield" aria-hidden="true"></canvas>
+  <a class="skip" href="#main">Skip to main content</a>
 
-<div class="grid"></div>
-<div class="stars" id="stars"></div>
+  <header class="topbar">
+    <div class="wrap bar">
+      <a class="brand" href="/" aria-label="A.R.I.E.S. docking bay">
+        <span class="brand-name">A.R.I.E.S.</span>
+        <span class="brand-sub">Autonomous Research, Intelligence &amp; Exploration Station</span>
+      </a>
+      <nav class="nav" aria-label="Station sections">
+        <ul>
+          <li><a href="/" aria-current="page">Docking Bay</a></li>
+          <li><span class="off">Crew Quarters<span class="sr-only"> (offline)</span></span></li>
+          <li><span class="off">Radio Room<span class="sr-only"> (offline)</span></span></li>
+          <li><span class="off">Crew Log<span class="sr-only"> (offline)</span></span></li>
+        </ul>
+      </nav>
+      <button type="button" id="theme-toggle" class="btn" aria-pressed="false">
+        <span class="ico" aria-hidden="true">&#9680;</span><span>Light theme</span>
+      </button>
+    </div>
+  </header>
 
-<div class="satellite-wrap">
-  <div class="satellite">
-    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="19" y="19" width="10" height="10" rx="1.5" fill="#8b7cf6"/>
-      <rect x="2" y="17" width="13" height="5" rx="1" fill="#5eead4" opacity="0.85"/>
-      <rect x="33" y="17" width="13" height="5" rx="1" fill="#5eead4" opacity="0.85"/>
-      <line x1="19" y1="24" x2="10" y2="30" stroke="#e7e6f5" stroke-width="1.5"/>
-      <circle class="blip" cx="10" cy="30" r="2" fill="#ffd166"/>
-    </svg>
-  </div>
-</div>
+  <main id="main">
+    <div class="wrap">
+      <div class="hero">
+        <section class="stack" aria-labelledby="bay-heading">
+          <div>
+            <p class="eyebrow">Deck 01 // Arrivals</p>
+            <h1 id="bay-heading">Docking Bay</h1>
+            <p class="lede">
+              <strong>Welcome aboard, visitor.</strong> This is A.R.I.E.S., a small station run by one
+              operator out of Romania. The bay doors are open, the lights are on, and most of the
+              station is still under construction. Look around; more modules come online over time.
+            </p>
+          </div>
 
-<main>
-  <div class="eyebrow">pixal.ro</div>
-  <div class="code">
-    404
-    <span class="glitch-layer" aria-hidden="true">404</span>
-    <span class="glitch-layer two" aria-hidden="true">404</span>
-  </div>
-  <p class="sub">You've reached <b>pixal.ro</b> — there's nothing parked here yet. The signal's still being tuned.</p>
-  <div class="cursor-line">building something<span class="blink"></span></div>
-</main>
+          <div class="panel" aria-label="Docking bay illustration">
+            <svg class="bay-art" viewBox="0 0 640 240" role="img" aria-labelledby="bay-t bay-d">
+              <title id="bay-t">Docking bay illustration</title>
+              <desc id="bay-d">A station hull with a wide bay door that slides open, hazard stripes and blinking lamps.</desc>
+              <defs>
+                <pattern id="hazard" width="16" height="16" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                  <rect class="haz-a" width="8" height="16"/>
+                  <rect class="haz-b" x="8" width="8" height="16"/>
+                </pattern>
+              </defs>
 
-<footer>transmitting from low earth orbit</footer>
+              <!-- bay interior -->
+              <rect class="void" x="200" y="80" width="240" height="120"/>
+              <g class="floor">
+                <line class="floor-line" x1="240" y1="200" x2="290" y2="120"/>
+                <line class="floor-line" x1="400" y1="200" x2="350" y2="120"/>
+                <line class="floor-line" x1="270" y1="150" x2="370" y2="150"/>
+                <line class="floor-line" x1="285" y1="130" x2="355" y2="130"/>
+              </g>
 
-<script src="script.js"></script>
+              <!-- sliding doors (drawn before the hull so they slide into it) -->
+              <rect class="door door-l" x="200" y="90" width="120" height="100"/>
+              <rect class="door door-r" x="320" y="90" width="120" height="100"/>
 
+              <!-- hull plates -->
+              <rect class="hull" x="20" y="20" width="600" height="60" rx="8"/>
+              <rect class="hull" x="20" y="200" width="600" height="20" rx="6"/>
+              <rect class="hull" x="20" y="80" width="180" height="120"/>
+              <rect class="hull" x="440" y="80" width="180" height="120"/>
+              <path class="panel-line" d="M160 20V80M480 20V80M20 140H200M440 140H620"/>
+
+              <!-- hazard stripes -->
+              <rect x="200" y="80" width="240" height="10" fill="url(#hazard)"/>
+              <rect x="200" y="190" width="240" height="10" fill="url(#hazard)"/>
+
+              <!-- lamps and markings -->
+              <circle class="lamp" cx="188" cy="92" r="5"/>
+              <circle class="lamp" cx="452" cy="92" r="5"/>
+              <circle class="lamp ok" cx="40" cy="40" r="4"/>
+              <circle class="lamp ok" cx="600" cy="40" r="4"/>
+              <text x="320" y="56" text-anchor="middle">BAY 01</text>
+            </svg>
+          </div>
+        </section>
+
+        <aside class="stack" aria-label="Station status">
+          <section class="panel" aria-labelledby="boot-h">
+            <h2 id="boot-h">Arrival log</h2>
+            <ol class="boot-log">
+              <li style="--i:1"><span class="prompt">&gt;</span> docking clamps ........ <span class="ok">OK</span></li>
+              <li style="--i:2"><span class="prompt">&gt;</span> atmosphere ........... <span class="ok">NOMINAL</span></li>
+              <li style="--i:3"><span class="prompt">&gt;</span> uplink ................ <span class="ok">ESTABLISHED</span></li>
+              <li style="--i:4"><span class="prompt">&gt;</span> construction .......... <span class="caution">IN PROGRESS</span></li>
+              <li style="--i:5"><span class="prompt">&gt;</span> visitor detected ..... <span class="ok">WELCOME</span></li>
+            </ol>
+          </section>
+
+          <section class="panel" aria-labelledby="status-h">
+            <h2 id="status-h">Station status</h2>
+            <dl class="readouts">
+              <div><dt>Station</dt><dd class="val-ok"><span class="dot" aria-hidden="true"></span>Nominal</dd></div>
+              <div><dt>Operator</dt><dd>Pixal</dd></div>
+              <div><dt>Station clock</dt><dd id="clock">--:--:-- UTC</dd></div>
+              <div><dt>In operation</dt><dd id="uptime" data-since="2026-11-15">0 days</dd></div>
+              <div><dt>Modules online</dt><dd>1 / 4</dd></div>
+              <div><dt>Under construction</dt><dd class="val-warn"><span class="dot warn" aria-hidden="true"></span>3 modules</dd></div>
+            </dl>
+          </section>
+        </aside>
+      </div>
+
+      <h2 class="section-title">Station modules</h2>
+      <ul class="modules">
+        <li class="module here">
+          <span class="badge here">You are here</span>
+          <h3>Docking Bay</h3>
+          <p>Arrivals, status readouts and the way to everywhere else.</p>
+        </li>
+        <li class="module offline">
+          <span class="badge offline">Offline</span>
+          <h3>Crew Quarters</h3>
+          <p>The crew manifest: who runs this station, and what they get up to.</p>
+        </li>
+        <li class="module offline">
+          <span class="badge offline">Offline</span>
+          <h3>Radio Room</h3>
+          <p>Transmissions: notes and updates from the station.</p>
+        </li>
+        <li class="module offline">
+          <span class="badge offline">Offline</span>
+          <h3>Crew Log</h3>
+          <p>A guestbook, for visitors who want to leave a message.</p>
+        </li>
+      </ul>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <span>A.R.I.E.S. // pixal.ro</span>
+      <span>Static site. No trackers, no cookies.</span>
+    </div>
+  </footer>
 </body>
 </html>
