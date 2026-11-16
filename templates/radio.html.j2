@@ -81,62 +81,39 @@
           <dl class="readouts">
             <div><dt>Channel</dt><dd>Station broadcast</dd></div>
             <div><dt>Signal</dt><dd class="val-ok"><span class="strength" aria-hidden="true" style="display:inline-flex;vertical-align:middle"><i></i><i></i><i></i><i></i><i></i></span><span class="sr-only">Strong</span></dd></div>
-            <div><dt>Transmissions</dt><dd>2 on file</dd></div>
+            <div><dt>Transmissions</dt><dd>{{ transmissions|length }} on file</dd></div>
           </dl>
         </section>
       </div>
 
       <h2 class="section-title">Transmission log</h2>
       <ol class="log" reversed>
+        {% for tx in transmissions %}
         <li>
-          <article class="tx" aria-labelledby="tx2-h">
+          <article class="tx" aria-labelledby="tx{{ tx.num }}-h">
             <p class="tx-meta">
-              <span class="id">TX-002</span>
-              <time datetime="2026-11-16">16 Nov 2026</time>
+              <span class="id">TX-{{ "%03d"|format(tx.num) }}</span>
+              <time datetime="{{ tx.date.isoformat() }}">{{ tx.date_human }}</time>
               <span>Channel: station</span>
             </p>
-            <h3 id="tx2-h">Crew quarters open</h3>
-            <p>
-              The second module is online. The crew manifest is up, with a portrait, a mission
-              statement and a list of what is running aboard. It is a short page for now, and it will
-              grow as there is more to say.
-            </p>
-            <p>
-              This radio room is the third module, which makes the crew log the last one still under
-              construction. A guestbook needs somewhere to store messages, so that one will take a bit
-              longer to build properly.
-            </p>
-            <ul class="tags" aria-label="Tags"><li>Update</li><li>Site</li></ul>
+            <h3 id="tx{{ tx.num }}-h">{{ tx.title }}</h3>
+            {{ tx.html|safe }}
+            {% if tx.tags %}
+            <ul class="tags" aria-label="Tags">
+              {% for tag in tx.tags %}<li>{{ tag }}</li>{% endfor %}
+            </ul>
+            {% endif %}
           </article>
         </li>
-        <li>
-          <article class="tx" aria-labelledby="tx1-h">
-            <p class="tx-meta">
-              <span class="id">TX-001</span>
-              <time datetime="2026-11-15">15 Nov 2026</time>
-              <span>Channel: station</span>
-            </p>
-            <h3 id="tx1-h">Station online</h3>
-            <p>
-              First transmission. A.R.I.E.S. (Autonomous Research, Intelligence &amp; Exploration
-              Station) is now open for visitors. It started as a plain 404 page, and it has grown into
-              a docking bay, an airlock and a dark theme with a light one for daytime.
-            </p>
-            <p>
-              If you ever find yourself drifting ten metres from the airlock with a severed tether,
-              you found a page that does not exist. Follow the signal back to the docking bay.
-            </p>
-            <ul class="tags" aria-label="Tags"><li>Launch</li><li>Site</li></ul>
-          </article>
-        </li>
+        {% endfor %}
       </ol>
-      <p class="log-end">End of log // more transmissions incoming</p>
+      <p class="log-end">End of log // more transmissions soon</p>
     </div>
   </main>
 
   <footer class="footer">
     <div class="wrap">
-      <span>A.R.I.E.S. // pixal.ro</span>
+      <span>A.R.I.E.S. // &copy; 2026 pixal.ro</span>
       <span>Static site. No trackers, no cookies.</span>
     </div>
   </footer>

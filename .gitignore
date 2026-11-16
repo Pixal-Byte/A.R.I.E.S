@@ -1,0 +1,9 @@
+#For the built indexes
+public/radio/index.html
+
+#For samples
+tools/sample
+
+#.venv (ofc), and cache
+.venv/
+__pycache__/
