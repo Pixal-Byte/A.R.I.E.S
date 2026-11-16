@@ -7,3 +7,6 @@ tools/sample
 #.venv (ofc), and cache
 .venv/
 __pycache__/
+
+#configuration file
+radio.toml
