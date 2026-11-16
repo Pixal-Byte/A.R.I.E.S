@@ -29,7 +29,7 @@
   background: linear-gradient(to top, var(--accent-2), var(--accent));
   transform-origin: bottom; transform: scaleY(var(--h, .4));
 }
-.eq span.hot { background: linear-gradient(to top, var(--accent), var(--warn)); }
+.eq span.hot { background: linear-gradient(to top, var(--warn), var(--accent-2)); }
 
 .strength { display: flex; align-items: flex-end; gap: 4px; height: 18px; }
 .strength i { width: 6px; background: var(--accent); border-radius: 1px; }
