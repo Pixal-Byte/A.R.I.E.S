@@ -10,3 +10,6 @@ __pycache__/
 
 #configuration file
 radio.toml
+
+#.well-known
+/public/.well-known
