@@ -140,6 +140,6 @@
 (function () {
   var base = document.title;
   document.addEventListener("visibilitychange", function () {
-    document.title = document.hidden ? "A.R.I.E.S. // CREW MEMBER AWAY..." : base;
+    document.title = document.hidden ? "A.R.I.E.S. // VSITOR AWAY..." : base;
   });
 })();
