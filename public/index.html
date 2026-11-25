@@ -26,7 +26,7 @@
           <li><a href="/" aria-current="page">Docking Bay</a></li>
           <li><a href="/about/">Crew Quarters</a></li>
           <li><a href="/radio/">Radio Room</a></li>
-          <li><span class="off">Crew Log<span class="sr-only"> (offline)</span></span></li>
+          <li><a href="/crew-log/">Crew Log</a></li>
         </ul>
       </nav>
       <button type="button" id="theme-toggle" class="btn" aria-pressed="false">
@@ -101,7 +101,7 @@
               <li style="--i:1"><span class="prompt">&gt;</span> docking clamps ........ <span class="ok">OK</span></li>
               <li style="--i:2"><span class="prompt">&gt;</span> atmosphere ........... <span class="ok">NOMINAL</span></li>
               <li style="--i:3"><span class="prompt">&gt;</span> uplink ................ <span class="ok">ESTABLISHED</span></li>
-              <li style="--i:4"><span class="prompt">&gt;</span> construction .......... <span class="caution">IN PROGRESS</span></li>
+              <li style="--i:4"><span class="prompt">&gt;</span> construction .......... <span class="ok">ICOMPLETED</span></li>
               <li style="--i:5"><span class="prompt">&gt;</span> visitor detected ..... <span class="ok">WELCOME</span></li>
             </ol>
           </section>
@@ -113,8 +113,8 @@
               <div><dt>Operator</dt><dd>Pixal</dd></div>
               <div><dt>Station clock</dt><dd id="clock">--:--:-- UTC</dd></div>
               <div><dt>In operation</dt><dd id="uptime" data-since="2026-11-15">0 days</dd></div>
-              <div><dt>Modules online</dt><dd>3 / 4</dd></div>
-              <div><dt>Under construction</dt><dd class="val-warn"><span class="dot warn" aria-hidden="true"></span>1 modules</dd></div>
+              <div><dt>Modules online</dt><dd>4 / 4</dd></div>
+              <div><dt>Under construction</dt><dd class="val-ok"><span class="dot ok" aria-hidden="true"></span>0 modules</dd></div>
             </dl>
           </section>
         </aside>
@@ -137,9 +137,9 @@
           <h3><a href="/radio/">Radio Room</a></h3>
           <p>Transmissions: notes and updates from the station.</p>
         </li>
-        <li class="module offline">
-          <span class="badge offline">Offline</span>
-          <h3>Crew Log</h3>
+        <li class="module">
+          <span class="badge here">Online</span>
+          <h3><a href="/crew-log/">Crew Log</a></h3>
           <p>A guestbook, for visitors who want to leave a message.</p>
         </li>
       </ul>
