@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A.R.I.E.S. // Crew Log</title>
+  <meta name="description" content="A.R.I.E.S. crew log: the station's visitor register. Leave a message for the crew.">
+  <meta name="theme-color" content="#16151b">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2316151b'/%3E%3Cpath fill-rule='evenodd' d='M16 5 6 27h4l2-5h8l2 5h4L16 5zm0 9 3 6h-6l3-6z' fill='%23a78bfa'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/crew-log/crew-log.css">
+  <script src="/theme.js"></script>
+  <script src="/script.js" defer></script>
+  <script src="/crew-log/crew-log.js" defer></script>
+</head>
+<body>
+  <canvas id="starfield" aria-hidden="true"></canvas>
+  <a class="skip" href="#main">Skip to main content</a>
+
+  <header class="topbar">
+    <div class="wrap bar">
+      <a class="brand" href="/" aria-label="A.R.I.E.S. docking bay">
+        <span class="brand-name">A.R.I.E.S.</span>
+        <span class="brand-sub">Autonomous Research, Intelligence &amp; Exploration Station</span>
+      </a>
+      <nav class="nav" aria-label="Station sections">
+        <ul>
+          <li><a href="/">Docking Bay</a></li>
+          <li><a href="/about/">Crew Quarters</a></li>
+          <li><a href="/radio/">Radio Room</a></li>
+          <li><a href="/crew-log/" aria-current="page">Crew Log</a></li>
+        </ul>
+      </nav>
+      <button type="button" id="theme-toggle" class="btn" aria-pressed="false">
+        <span class="ico" aria-hidden="true">&#9680;</span><span>Light theme</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="wrap">
+      <p class="eyebrow">Deck 04 // Visitors' register</p>
+      <h1>Crew Log</h1>
+      <p class="lede">
+        <strong>Leave a line for the crew.</strong> Every visitor who docks can sign the log.
+        Entries are read by a crew member before they appear, so yours may take a little while.
+      </p>
+
+      <!-- The script only ever changes data-state: connecting | online | offline.
+            CSS decides which of the three blocks below is visible. -->
+      <div id="crewlog" data-state="connecting">
+
+        <noscript>
+          <div class="panel narrow">
+            <h2>Script required</h2>
+            <p class="lede" style="margin:0">
+              The crew log talks to the station's registry from your browser, so it needs JavaScript.
+              Everything else on the station works without it.
+            </p>
+          </div>
+          <style>.state-connecting { display: none !important; }</style>
+        </noscript>
+
+        <!-- 1. connecting -->
+        <div class="state state-connecting">
+          <div class="panel narrow">
+            <h2>Telemetry</h2>
+            <p class="lede" style="margin:0" role="status">Establishing link to the registry&hellip;</p>
+          </div>
+        </div>
+
+        <!-- 2. online: the form and the entries -->
+        <div class="state state-online">
+          <div class="log-grid">
+
+            <section class="panel" aria-labelledby="sign-h">
+              <h2 id="sign-h">Sign the log</h2>
+
+              <form id="log-form" class="log-form" autocomplete="off">
+                <div class="field">
+                  <label for="f-name">Name or callsign</label>
+                  <input type="text" id="f-name" name="name" required maxlength="40" autocomplete="nickname">
+                  <p class="hint">Up to 40 characters.</p>
+                </div>
+
+                <div class="field">
+                  <label for="f-message">Message</label>
+                  <textarea id="f-message" name="message" required maxlength="500"></textarea>
+                  <p class="hint"><span id="msg-count">0</span> / 500 characters</p>
+                </div>
+
+                <!-- Bot trap. Real visitors never see it, reach it with Tab, or hear it read out.
+                      The field name "website" is what the API expects; the script sends it along unchanged. -->
+                <div class="hp" aria-hidden="true">
+                  <label for="f-website">Website</label>
+                  <input type="text" id="f-website" name="website" tabindex="-1" autocomplete="off">
+                </div>
+
+                <p id="form-status" class="notice" role="status" hidden></p>
+
+                <div class="actions">
+                  <button type="submit" id="send" class="btn primary">Transmit entry</button>
+                </div>
+              </form>
+            </section>
+
+            <section aria-labelledby="entries-h">
+              <h2 id="entries-h" class="section-title flush">Entries</h2>
+              <p id="entries-empty" class="empty" hidden>The log is empty. Be the first to sign it.</p>
+              <ol id="entries" class="entries"></ol>
+              <p class="actions"><button type="button" id="more" class="btn" hidden>Load older entries</button></p>
+            </section>
+
+          </div>
+        </div>
+
+        <!-- 3. offline -->
+        <div class="state state-offline">
+          <div class="panel narrow">
+            <h2>Telemetry</h2>
+            <p class="lede" style="margin-top:0">
+              <strong>The registry is not responding.</strong> The crew log runs on its own system,
+              and it is down or restarting. Nothing you wrote has been lost, because nothing was sent.
+            </p>
+            <dl class="readouts">
+              <div><dt>Crew log</dt><dd class="val-warn"><span class="dot warn" aria-hidden="true"></span>No response</dd></div>
+              <div><dt>Rest of the station</dt><dd class="val-ok"><span class="dot" aria-hidden="true"></span>Nominal</dd></div>
+              <div><dt>Next attempt</dt><dd>in <span id="retry-in">30</span> s</dd></div>
+            </dl>
+            <p class="actions"><button type="button" id="retry" class="btn primary">Retry now</button></p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Entry template. The script clones this and fills it in with textContent, never innerHTML. -->
+      <template id="entry-tpl">
+        <li class="entry">
+          <article>
+            <p class="entry-meta">
+              <span class="callsign"></span>
+              <time></time>
+            </p>
+            <p class="entry-body"></p>
+          </article>
+        </li>
+      </template>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <span>A.R.I.E.S. // &copy; 2026 pixal.ro</span>
+      <span>Static site. No trackers, no cookies.</span>
+    </div>
+  </footer>
+</body>
+</html>

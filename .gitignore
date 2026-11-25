@@ -13,3 +13,6 @@ radio.toml
 
 #.well-known
 /public/.well-known
+
+#template-response
+public/crew-log/template_response.json
