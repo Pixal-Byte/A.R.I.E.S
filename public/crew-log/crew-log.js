@@ -2,6 +2,7 @@
     var root = document.getElementById("crewlog");
     var tpl = document.getElementById("entry-tpl");
     var list = document.getElementById("entries");
+    var empty_notice = document.getElementById("entries-empty");
 
     function setState(state) { root.dataset.state = state; }
 
@@ -35,8 +36,8 @@
     async function loadEntries() {
         try {
             var entries = await getJSON("/api/guestbook?limit=20");
-            render(entries)
-            
+            empty_notice.hidden = entries.length > 0;
+            render(entries);
         setState("online");
         } catch (err) {
             console.error(err);
