@@ -1,5 +1,7 @@
 (function () {
     var root = document.getElementById("crewlog");
+    var tpl = document.getElementById("entry-tpl");
+    var list = document.getElementById("entries");
 
     function setState(state) { root.dataset.state = state; }
 
@@ -15,12 +17,29 @@
         }
     }
 
+    function render(entries) {
+        list.replaceChildren();
+        entries.forEach(function(entry) {
+            var li = tpl.content.firstElementChild.cloneNode(true);
+            li.querySelector(".callsign").textContent = entry.name;
+            li.querySelector(".entry-body").textContent = entry.message;
+
+            var time = li.querySelector("time");
+            time.dateTime = entry.created_at;
+            time.textContent = new Date(entry.created_at).toLocaleString();
+
+            list.appendChild(li);
+        });
+    }
+
     async function loadEntries() {
         try {
             var entries = await getJSON("/api/guestbook?limit=20");
-            // TODO: render(entries) by cloning #entry-tpl and filling it with textContent
+            render(entries)
+            
         setState("online");
         } catch (err) {
+            console.error(err);
             setState("offline");                // network error, timeout, 5xx or non-JSON: all "offline"
         }
     }
