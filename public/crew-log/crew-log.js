@@ -8,6 +8,11 @@
     var token = null;
     var formStatus = document.getElementById("form-status");
     var btn_send = document.getElementById("send");
+    var more = document.getElementById("more");
+
+    // status trackers
+    var PAGE = 20;
+    var offset = 0;
 
     //Helpers
     function setState(state) { root.dataset.state = state; }
@@ -36,7 +41,6 @@
     }
 
     function render(entries) {
-        list.replaceChildren();
         entries.forEach(function(entry) {
             var li = tpl.content.firstElementChild.cloneNode(true);
             li.querySelector(".callsign").textContent = entry.name;
@@ -52,9 +56,12 @@
 
     async function loadEntries() {
         try {
-            var entries = await getJSON("/api/guestbook?limit=20");
+            list.replaceChildren();
+            offset = 0;
+            var entries = await getJSON("/api/guestbook?limit=" + PAGE);
             empty_notice.hidden = entries.length > 0;
             render(entries);
+            more.hidden = entries.length < PAGE;
             await refreshToken();
             setState("online");
         } catch (err) {
@@ -68,6 +75,21 @@
     document.getElementById("retry").addEventListener("click", function() { loadEntries() });
     message.addEventListener("input", function() {
         document.getElementById("msg-count").textContent = message.value.length;
+    });
+    more.addEventListener("click", async function () {
+        more.disabled = true;
+        try {
+            var next = await getJSON("/api/guestbook?limit=" + PAGE + "&offset=" + (offset + PAGE));
+            offset += PAGE;                  // only advance once the request succeeded
+            render(next);                    // appends
+            more.hidden = next.length < PAGE;
+            more.textContent = "Load older entries";
+        } catch (err) {
+            console.error(err);              // offset unchanged, so clicking again retries the same page
+            more.textContent = "Couldn't load. Try again";
+        } finally {
+            more.disabled = false;
+        }
     });
     form.addEventListener("submit", async function (event) {
         event.preventDefault();
